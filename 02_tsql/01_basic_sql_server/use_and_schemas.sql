@@ -20,3 +20,10 @@ CREATE TABLE dbo.Persons (                 -- Creates the Persons table inside t
     Age  int                                   -- Age column as an integer
 );
 GO
+
+
+
+
+
+
+
