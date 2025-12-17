@@ -95,6 +95,18 @@ FROM Orders                                            -- FROM Orders = rows can
 WHERE Amount > 100;                                   -- WHERE = selected rows stay locked
 COMMIT;                                                -- COMMIT = releases row locks
 
+--OR 
+
+----------------
+-- SNAPSHOT = read a consistent version of the data without locking (modern alternative)
+----------------
+SET TRANSACTION ISOLATION LEVEL SNAPSHOT;              -- SNAPSHOT = uses row versions; does not block or wait for locks
+BEGIN TRANSACTION                                      -- BEGIN TRANSACTION = starts the transaction
+SELECT *                                               -- SELECT = read data
+FROM Orders                                            -- FROM Orders = reads a consistent snapshot from the start of the transaction
+WHERE Amount > 100;                                   -- WHERE = the result set does not change during the transaction
+COMMIT;                                                -- COMMIT = ends the transaction; no locks to release
+
 
 ----------------
 -- SERIALIZABLE = highest isolation level
