@@ -69,6 +69,11 @@ SELECT *                                               -- SELECT = read data
 FROM Orders;                                           -- FROM Orders = reads rows even if not committed
 COMMIT;                                                -- COMMIT = ends transaction
 
+----------------
+-- NOLOCK = read data without blocking (alternative to READ UNCOMMITTED)
+----------------
+SELECT *                                               -- SELECT = read data
+FROM Orders WITH (NOLOCK);                             -- NOLOCK = does not apply read locks; allows reading uncommitted data
 
 ----------------
 -- READ COMMITTED = read only committed data (default level)
