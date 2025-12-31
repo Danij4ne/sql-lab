@@ -1,6 +1,18 @@
 
 
 ----------------
+-- PRIMARY_KEY_CLUSTERED() = definir el orden físico de la tabla
+----------------
+CREATE TABLE Orders (                                                   -- CREATE TABLE = crear tabla nueva llamada Orders
+    order_id INT IDENTITY(1,1),                                          -- order_id = identificador único autoincremental
+    customer_id INT,                                                    -- customer_id = columna que identifica al cliente
+    order_date DATE,                                                    -- order_date = fecha del pedido
+    total_amount DECIMAL(10,2),                                          -- total_amount = importe del pedido con 2 decimales
+    CONSTRAINT PK_Orders PRIMARY KEY CLUSTERED (order_id)               -- PRIMARY KEY CLUSTERED = índice clustered con nombre profesional que define el orden físico
+);                                                                      -- ; = final de la instrucción
+
+
+----------------
 -- NORMAL (NONCLUSTERED) INDEX = basic index to speed up searches (allows duplicates)
 ----------------
 CREATE NONCLUSTERED INDEX IX_Users_Email       -- normal index: speed only, does not block duplicates
