@@ -56,3 +56,42 @@ ON Products (product_id, price);               -- product_id = search; price = r
 
 -- CLUSTERED     Orders the real data
 -- NONCLUSTERED  Creates search lists
+
+
+-----------------
+-- FILTERED_INDEX() = index only rows that match a condition
+----------------
+CREATE NONCLUSTERED INDEX idx_filter_deviceactive   -- CREATE NONCLUSTERED INDEX = create nonclustered index
+ON Devices (device_id)                              -- ON Devices = table; device_id = indexed column
+WHERE device_status = 'Active';                     -- WHERE = only index rows with Active status
+
+
+----------------
+-- FILTERED_QUERY_USAGE() = query that uses a filtered index
+----------------
+SELECT *                                            -- SELECT * = return all columns
+FROM Devices                                       -- FROM Devices = devices table
+WHERE device_status = 'Active'                     -- WHERE = filter only active devices
+  AND device_id = 123;                              -- AND device_id = search a specific device
+
+
+----------------
+-- REORGANIZE_INDEX() = reorder index with low fragmentation
+----------------
+ALTER INDEX idx_customer_orderdate                 -- ALTER INDEX = modify existing index
+ON Orders                                          -- ON Orders = orders table
+REORGANIZE;                                        -- REORGANIZE = reorganize pages without blocking
+
+
+----------------
+-- REBUILD_INDEX() = rebuild index with high fragmentation
+----------------
+ALTER INDEX idx_cover_productprice                 -- ALTER INDEX = modify index
+ON Products                                        -- ON Products = products table
+REBUILD;                                           -- REBUILD = fully rebuild the index
+
+
+----------------
+-- UPDATE_STATISTICS() = refresh optimizer statistics
+----------------
+UPDATE STATISTICS Orders;                          -- UPDATE STATISTICS = refresh statistics; Orders = analyzed table
