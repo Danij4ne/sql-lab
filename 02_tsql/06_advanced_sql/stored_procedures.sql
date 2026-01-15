@@ -61,3 +61,35 @@ BEGIN                                                 -- start of the procedure 
       AND resolution_date IS NULL;                   -- protects tickets that are already resolved
 END;                                                  -- end of the procedure
 
+----------------
+-- SET NOCOUNT ON = disables "X rows affected" messages in stored procedures
+----------------
+-- SET NOCOUNT ON disables the automatic messages that SQL Server sends
+-- after each SELECT, INSERT, UPDATE, or DELETE statement.
+-- It is used to:
+-- 1) Prevent applications (Power BI, Python, APIs, ETL) from receiving noise data
+-- 2) Improve performance by reducing network traffic
+-- 3) Make the stored procedure compatible with professional environments
+-- It should always be placed at the beginning of a stored procedure's BEGIN block.
+
+CREATE PROCEDURE dbo.Example_NoCount
+AS
+BEGIN
+    SET NOCOUNT ON;                 -- enables silent mode (no "rows affected" messages)
+
+    SELECT * 
+    FROM dbo.Customers;             -- returns only the result set, without "(X rows affected)"
+END;
+GO
+
+
+
+
+
+
+
+
+
+
+
+
